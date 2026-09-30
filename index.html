@@ -2,10 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Card Verification Preview</title>
 <style>
   * { box-sizing: border-box; }
+
+  html {
+    /* Tracks the device/browser font-size setting, with a mild bump on
+       wide screens. Everything below is sized in rem, so the whole page
+       scales with whatever the viewer has set. */
+    font-size: clamp(100%, 0.85rem + 0.3vw, 112%);
+  }
 
   html, body {
     margin: 0;
@@ -19,21 +26,23 @@
 
   body {
     min-height: 100vh;
+    min-height: 100dvh;
   }
 
   .page {
     width: 100%;
     min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 18px 0 28px;
+    padding: 1.125rem max(1.25rem, env(safe-area-inset-left)) 1.75rem max(1.25rem, env(safe-area-inset-right));
     background: #fff;
   }
 
   .card-wrap {
-    width: min(46vw, 440px);
-    margin: 0 auto 42px;
+    width: min(46vw, 27.5rem);
+    margin: 0 auto 2.625rem;
     display: flex;
     justify-content: center;
   }
@@ -43,38 +52,38 @@
     height: auto;
     display: block;
     object-fit: contain;
-    border-radius: 24px;
+    border-radius: 1.5rem;
   }
 
   h1 {
     margin: 0;
-    padding: 0 20px;
+    padding: 0 1.25rem;
     text-align: center;
-    font-size: clamp(36px, 5vw, 48px);
+    font-size: clamp(2.125rem, 3.4vw, 3rem);
     line-height: 1.08;
-    letter-spacing: -1.5px;
+    letter-spacing: -0.035em;
     font-weight: 700;
   }
 
   .subtitle {
-    margin: 27px 20px 46px;
+    margin: 1.6875rem 1.25rem 2.875rem;
     text-align: center;
-    font-size: clamp(18px, 2.5vw, 23px);
+    font-size: clamp(1.0625rem, 1.9vw, 1.4375rem);
     line-height: 1.35;
     color: #222;
   }
 
   .options {
-    width: min(92vw, 670px);
+    width: min(92vw, 41.875rem);
     overflow: hidden;
-    border-radius: 17px;
+    border-radius: 1.0625rem;
     background: #f1f0f7;
   }
 
   .option {
     width: 100%;
-    min-height: 108px;
-    padding: 21px 62px 19px 30px;
+    min-height: 6.75rem;
+    padding: 1.3125rem 3.875rem 1.1875rem 1.875rem;
     position: relative;
     border: 0;
     border-radius: 0;
@@ -90,15 +99,15 @@
 
   .title {
     display: block;
-    margin-bottom: 3px;
-    font-size: clamp(20px, 3vw, 26px);
+    margin-bottom: 0.1875rem;
+    font-size: clamp(1.1875rem, 2.1vw, 1.625rem);
     line-height: 1.2;
     font-weight: 500;
   }
 
   .detail {
     display: block;
-    font-size: clamp(18px, 2.6vw, 22px);
+    font-size: clamp(1.0625rem, 1.9vw, 1.375rem);
     line-height: 1.25;
     color: #777780;
   }
@@ -115,19 +124,22 @@
   }
 
   .bottom {
-    width: min(88vw, 640px);
+    width: min(88vw, 40rem);
     margin-top: auto;
-    padding-top: 80px;
+    padding-top: 5rem;
   }
 
   .next {
     width: 100%;
-    height: 88px;
+    height: 5.5rem;
     border: 0;
-    border-radius: 27px;
+    border-radius: 1.6875rem;
     background: #087ff5;
     color: white;
-    font: 500 clamp(24px, 3vw, 29px)/1 inherit;
+    font-family: inherit;
+    font-size: clamp(1.625rem, 2.5vw, 2.125rem);
+    font-weight: 500;
+    line-height: 1;
     cursor: pointer;
     position: relative;
     overflow: visible;
@@ -137,8 +149,8 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 165px;
-    height: 165px;
+    width: 10.3125rem;
+    height: 10.3125rem;
     transform: translate(-50%, -50%);
     border-radius: 50%;
     background: rgba(255,255,255,.22);
@@ -148,23 +160,23 @@
   }
 
   @media (max-width: 600px) {
-    .card-wrap { width: 58vw; max-width: 330px; }
-    .page { padding: 12px 0 24px; }
-    .card-wrap { margin-bottom: 34px; }
-    .subtitle { margin: 22px 20px 38px; }
-    .option { padding-left: 24px; padding-right: 54px; }
-    .bottom { padding-top: 55px; }
-    .next { height: 82px; }
-    .touch { width: 135px; height: 135px; }
+    .card-wrap { width: 58vw; max-width: 20.625rem; }
+    .page { padding: 0.75rem max(1.25rem, env(safe-area-inset-left)) 1.5rem max(1.25rem, env(safe-area-inset-right)); }
+    .card-wrap { margin-bottom: 2.125rem; }
+    .subtitle { margin: 1.375rem 1.25rem 2.375rem; }
+    .option { padding-left: 1.5rem; padding-right: 3.375rem; }
+    .bottom { padding-top: 3.4375rem; }
+    .next { height: 5.125rem; }
+    .touch { width: 8.4375rem; height: 8.4375rem; }
   }
 
   @media (max-width: 400px) {
-    .card-wrap { width: 68vw; max-width: 270px; }
-    .options { width: calc(100vw - 32px); }
-    .bottom { width: calc(100vw - 44px); }
-    .option { min-height: 96px; padding-left: 20px; padding-right: 48px; }
-    .next { height: 74px; }
-    .touch { width: 115px; height: 115px; }
+    .card-wrap { width: 68vw; max-width: 16.875rem; }
+    .options { width: calc(100vw - 2rem); }
+    .bottom { width: calc(100vw - 2.75rem); }
+    .option { min-height: 6rem; padding-left: 1.25rem; padding-right: 3rem; }
+    .next { height: 4.625rem; }
+    .touch { width: 7.1875rem; height: 7.1875rem; }
   }
 </style>
 </head>
@@ -190,13 +202,13 @@
 
     <button class="option" type="button" aria-selected="true">
       <span class="title">Text Message</span>
-      <span class="detail">***-***-4686</span>
+      <span class="detail">***-***-2495</span>
       <span class="check" aria-hidden="true"></span>
     </button>
 
     <button class="option" type="button" aria-selected="false">
       <span class="title">Email Address</span>
-      <span class="detail">J**********@gmail.com</span>
+      <span class="detail">F*******@gmail.com</span>
     </button>
 
   </section>
