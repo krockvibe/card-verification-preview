@@ -124,7 +124,7 @@
     display: none;
   }
 
-  .option[aria-selected="true"] .check {
+  .option[aria-checked="true"] .check {
     display: block;
   }
 
@@ -203,15 +203,15 @@
     Choose how to verify your card for mobile payment.
   </p>
 
-  <section class="options" aria-label="Verification methods">
+  <section class="options" role="radiogroup" aria-label="Verification methods">
 
-    <button class="option" type="button" aria-selected="true">
+    <button class="option" type="button" role="radio" aria-checked="true">
       <span class="title">Text Message</span>
       <span class="detail">***-***-6187</span>
       <span class="check" aria-hidden="true"></span>
     </button>
 
-    <button class="option" type="button" aria-selected="false">
+    <button class="option" type="button" role="radio" aria-checked="false">
       <span class="title">Email Address</span>
       <span class="detail">u*********de@gmail.com</span>
       <span class="check" aria-hidden="true"></span>
@@ -230,8 +230,8 @@
   const options = document.querySelectorAll('.option');
   options.forEach((opt) => {
     opt.addEventListener('click', () => {
-      options.forEach((o) => o.setAttribute('aria-selected', 'false'));
-      opt.setAttribute('aria-selected', 'true');
+      options.forEach((o) => o.setAttribute('aria-checked', 'false'));
+      opt.setAttribute('aria-checked', 'true');
     });
   });
 </script>
