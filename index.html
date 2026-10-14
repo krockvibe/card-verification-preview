@@ -128,6 +128,11 @@
     display: block;
   }
 
+  .option:focus-visible {
+    outline: 3px solid #087ff5;
+    outline-offset: -3px;
+  }
+
   .bottom {
     width: min(88vw, 40rem);
     margin-top: auto;
@@ -227,11 +232,32 @@
 
 </main>
 <script>
-  const options = document.querySelectorAll('.option');
-  options.forEach((opt) => {
-    opt.addEventListener('click', () => {
-      options.forEach((o) => o.setAttribute('aria-checked', 'false'));
-      opt.setAttribute('aria-checked', 'true');
+  const options = Array.from(document.querySelectorAll('.option'));
+
+  function select(opt) {
+    options.forEach((o) => {
+      o.setAttribute('aria-checked', o === opt ? 'true' : 'false');
+      o.tabIndex = o === opt ? 0 : -1;
+    });
+    opt.focus();
+  }
+
+  options.forEach((opt, i) => {
+    opt.tabIndex = opt.getAttribute('aria-checked') === 'true' ? 0 : -1;
+
+    opt.addEventListener('click', () => select(opt));
+
+    opt.addEventListener('keydown', (e) => {
+      let next = null;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+        next = (i + 1) % options.length;
+      } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+        next = (i - 1 + options.length) % options.length;
+      }
+      if (next !== null) {
+        e.preventDefault();
+        select(options[next]);
+      }
     });
   });
 </script>
